@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>С Днём Рождения!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100dvh;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(160deg, #FFE8D6 0%, #FFD4E5 50%, #E8D4FF 100%);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .confetti {
+    position: absolute; top: -20px;
+    font-size: 16px;
+    animation: fall linear infinite;
+    opacity: 0.8;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.9; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.3; }
+  }
+
+  .card {
+    width: 90vw; max-width: 400px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(180,100,140,0.35);
+    padding: 28px 24px 24px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .top-icon { font-size: 40px; margin-bottom: 8px; }
+
+  .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600; font-style: italic;
+    font-size: 24px; color: #B8336A;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 11px; color: #C080A0;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .intro {
+    font-size: 12.5px; color: #8A5A70; line-height: 1.6;
+    margin-bottom: 20px; padding: 0 4px;
+  }
+
+  .compliment-box {
+    background: linear-gradient(160deg, #FFF5F8 0%, #FDEEF4 100%);
+    border: 1px solid #F5C8DC;
+    border-radius: 16px;
+    padding: 26px 20px;
+    min-height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .compliment-text {
+    font-family: 'Caveat', cursive;
+    font-size: 26px; font-weight: 600;
+    color: #8A2050; line-height: 1.35;
+    transition: opacity 0.4s ease;
+  }
+  .compliment-text.fade { opacity: 0; }
+
+  .tap-hint {
+    font-size: 10px; color: #C090B0;
+    margin-bottom: 18px;
+  }
+
+  .btn {
+    background: linear-gradient(135deg, #FF7AA8, #C850A0);
+    color: #fff; border: none; border-radius: 50px;
+    padding: 12px 30px; font-size: 14px; font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(200,80,160,0.4);
+    transition: transform 0.15s ease;
+  }
+  .btn:active { transform: scale(0.95); }
+
+  .counter {
+    margin-top: 14px; font-size: 10px; color: #D0A0B8;
+  }
+
+  .sig {
+    margin-top: 18px; padding-top: 14px;
+    border-top: 1px dashed #F0C8DC;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 13px; color: #B8336A;
+  }
+</style>
+</head>
+<body>
+
+<div class="confetti" style="left:8%; animation-duration:5.5s; animation-delay:0s;">🎉</div>
+<div class="confetti" style="left:20%; animation-duration:7s; animation-delay:0.8s;">✨</div>
+<div class="confetti" style="left:35%; animation-duration:6s; animation-delay:1.5s;">🎈</div>
+<div class="confetti" style="left:50%; animation-duration:5s; animation-delay:0.3s;">🎊</div>
+<div class="confetti" style="left:65%; animation-duration:6.5s; animation-delay:1s;">✨</div>
+<div class="confetti" style="left:80%; animation-duration:5.8s; animation-delay:0.5s;">🎉</div>
+<div class="confetti" style="left:92%; animation-duration:6.2s; animation-delay:1.3s;">🎈</div>
+
+<div class="card">
+  <div class="top-icon">🎂</div>
+  <div class="title">С Днём Рождения, Диана!</div>
+  <div class="subtitle">нажимай и читай</div>
+
+  <div class="intro">
+    Сегодня особенный день — и я хочу сказать тебе немного больше,
+    чем просто «с днём рождения». Ты человек, который по-настоящему
+    умеет добиваться своего, и это вдохновляет. Пусть этот год
+    принесёт тебе ещё больше поводов для гордости собой.
+  </div>
+
+  <div class="compliment-box">
+    <div class="compliment-text" id="complimentText">Ты большая умница ✨</div>
+  </div>
+
+  <div class="tap-hint">комплимент №<span id="num">1</span> из <span id="total">10</span></div>
+
+  <button class="btn" onclick="nextCompliment()">Следующий ✨</button>
+
+  <div class="sig">С любовью и гордостью, твой друг 🤍</div>
+</div>
+
+<script>
+const compliments = [
+  "Диана, ты большая умница ✨",
+  "Ты всего добиваешься сама — и это по-настоящему восхищает",
+  "Я горжусь твоей целеустремлённостью",
+  "Ты не останавливаешься, даже когда трудно",
+  "Ты супер. Без преувеличений",
+  "Твоя энергия заряжает всех вокруг",
+  "Ты идёшь к своим целям увереннее многих",
+  "У тебя сильный характер — и это видно во всём",
+  "Ты умеешь превращать трудности в шаги вперёд",
+  "Пусть ничто и никогда тебя не останавливает",
+  "Ты заслуживаешь всего самого лучшего",
+  "Пусть этот год принесёт тебе новые победы",
+  "Оставайся такой же яркой и настоящей",
+  "С Днём Рождения, умница! Вперёд, только вперёд 🎉"
+];
+
+let idx = 0;
+const textEl = document.getElementById('complimentText');
+const numEl = document.getElementById('num');
+document.getElementById('total').textContent = compliments.length;
+
+function nextCompliment() {
+  idx = (idx + 1) % compliments.length;
+  textEl.classList.add('fade');
+  setTimeout(() => {
+    textEl.textContent = compliments[idx];
+    numEl.textContent = idx + 1;
+    textEl.classList.remove('fade');
+  }, 250);
+}
+</script>
+</body>
+</html>
